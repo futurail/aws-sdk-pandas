@@ -331,7 +331,8 @@ def to_iceberg(
                 table=table,
                 path=table_location,  # type: ignore[arg-type]
                 wg_config=wg_config,
-                partition_cols=partition_cols,
+                # Iceberg tables have hidden partitions so no schema changes are applied
+                partition_cols=[],
                 additional_table_properties=additional_table_properties,
                 index=index,
                 data_source=data_source,

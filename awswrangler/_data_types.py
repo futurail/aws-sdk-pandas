@@ -25,9 +25,11 @@ def pyarrow2athena(  # noqa: PLR0911,PLR0912
 ) -> str:
     """Pyarrow to Athena data types conversion."""
     if pa.types.is_int8(dtype):
-        return "tinyint"
+        # "tinyint" Not supported for Iceberg tables in Athena: https://docs.aws.amazon.com/athena/latest/ug/querying-iceberg-supported-data-types.html
+        return "int"
     if pa.types.is_int16(dtype) or pa.types.is_uint8(dtype):
-        return "smallint"
+        # "smallint" Not supported for Iceberg tables in Athena: https://docs.aws.amazon.com/athena/latest/ug/querying-iceberg-supported-data-types.html
+        return "int"
     if pa.types.is_int32(dtype) or pa.types.is_uint16(dtype):
         return "int"
     if pa.types.is_int64(dtype) or pa.types.is_uint32(dtype):
